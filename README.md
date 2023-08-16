@@ -1,6 +1,8 @@
 
 > Diese Seite bei [https://calliope-net.github.io/key-qwiickeypad/](https://calliope-net.github.io/key-qwiickeypad/) öffnen
 
+![](key-qwiickeypad-460.jpg)
+
 ## Als Erweiterung verwenden
 
 Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
