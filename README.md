@@ -1,11 +1,13 @@
 
 Diese Seite bei [https://calliope-net.github.io/key-qwiickeypad/](https://calliope-net.github.io/key-qwiickeypad/) öffnen.
 
-![](key-qwiickeypad-460.jpg)
-
 ### Calliope Erweiterung für das i2c Modul:
 
 * [SparkFun Qwiic Keypad - 12 Button](https://www.sparkfun.com/products/15290)
+
+![](https://cdn.sparkfun.com//assets/parts/1/3/7/7/7/15290-SparkFun_Qwiic_Keypad_-_12_Button-01.jpg)
+
+![](key-qwiickeypad-460.jpg)
 
 Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
 
