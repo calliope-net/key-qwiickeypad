@@ -1,7 +1,7 @@
 
-//% color=#BF007F icon="\uf1ac" block="KEY Qwiic" weight=10
+//% color=#BF007F icon="\uf1ac" block="Keypad Qwiic" weight=10
 namespace qwiickeypad
-/* 230815
+/* 230815 https://github.com/calliope-net/key-qwiickeypad
 https://github.com/sparkfunX/Qwiic_Keypad
 https://www.sparkfun.com/products/14641
 
