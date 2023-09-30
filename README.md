@@ -1,5 +1,5 @@
 
-Diese Seite bei [https://calliope-net.github.io/key-qwiickeypad/](https://calliope-net.github.io/key-qwiickeypad/) öffnen.
+Diese Seite bei [https://calliope-net.github.io/keypad/](https://calliope-net.github.io/keypad/) öffnen.
 
 ### Calliope Erweiterung für das i2c Modul:
 
@@ -15,7 +15,7 @@ Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
 * klicke auf eine Projektvorlage
 * klicke unter dem Zahnrad-Menü auf **Erweiterungen** (oder bei den Blöcken ganz unten)
 * kopiere die folgende **Projekt-URL** in die Zwischenablage (Strg-C)
-* **calliope-net/key-qwiickeypad**
+* **calliope-net/keypad**
 * füge sie auf der Webseite oben ein (Strg-V) und klicke auf die Lupe (oder ENTER)
 * wenn die Erweiterung gefunden wurde, klicke auf das Rechteck
 * jetzt hat die Liste den neuen Eintrag **KEY Qwiic** bekommen
