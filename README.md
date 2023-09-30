@@ -18,7 +18,7 @@ Dieses Repository kann als **Erweiterung** in MakeCode hinzugefügt werden.
 * **calliope-net/keypad**
 * füge sie auf der Webseite oben ein (Strg-V) und klicke auf die Lupe (oder ENTER)
 * wenn die Erweiterung gefunden wurde, klicke auf das Rechteck
-* jetzt hat die Liste den neuen Eintrag **KEY Qwiic** bekommen
+* jetzt hat die Liste den neuen Eintrag **Keypad Qwiic** bekommen
 
 ![](blocks.png)
 
