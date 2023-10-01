@@ -1,7 +1,7 @@
 
-//% color=#BF007F icon="\uf1ac" block="Keypad Qwiic" weight=10
-namespace qwiickeypad_
-/* 230815 https://github.com/calliope-net/key-qwiickeypad
+//% color=#BF007F icon="\uf1ac" block="Keypad" weight=10
+namespace qwiickeypad
+/* 230815 231001 https://github.com/calliope-net/key-qwiickeypad
 https://github.com/sparkfunX/Qwiic_Keypad
 https://www.sparkfun.com/products/14641
 
@@ -18,7 +18,7 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     // https://learn.sparkfun.com/tutorials/qwiic-keypad-hookup-guide/hardware-overview
     // [Jumper] Open/Cut: Factory or Set I2C Slave Address: 0x4B (Factory Set) or 0x## (User Set)
     //          Bridged: I2C Jumper Default Slave Address: 0x4A (Alternate)
-    export enum eADDR { KEY_Qwiic = 0x4B, KEY_Qwiic_Jumper = 0x4A } //75 (0x4B) is default, 74 if jumper is closed
+    export enum eADDR { Keypad_x4B = 0x4B, Keypad_x4A_Jumper = 0x4A } //75 (0x4B) is default, 74 if jumper is closed
 
     //Map to the various registers on the Keypad
     export enum eKeypadRegisters {
@@ -33,8 +33,9 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     }
 
     //% group="Text"
-    //% block="i2c %pi2cADDR lese nächste Taste (1 Zeichen oder '')" weight=96
-    export function getChar(pADDR: eADDR) {
+    //% block="i2c %pADDR lese nächste Taste (1 Zeichen oder '')" weight=6
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    export function getChar(pADDR: number) {
         let code = getButton(pADDR)
         if (code == 0) { return "" }
         else { return String.fromCharCode(code) }
@@ -43,8 +44,9 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     export enum eDigits { nur_Ziffern, alle_Zeichen }
 
     //% group="Text"
-    //% block="i2c %pi2cADDR lese alle Tasten %pDigits" weight=94
-    export function getChars(pADDR: eADDR, pDigits: eDigits) {
+    //% block="i2c %pADDR lese alle Tasten %pDigits" weight=4
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    export function getChars(pADDR: number, pDigits: eDigits) {
         let code: number
         let zahl: string = "" // https://learn.sparkfun.com/tutorials/qwiic-keypad-hookup-guide/hardware-overview
         for (let i = 0; i < 16; i++) { // the FIFO stack stores the most recent 15 button inputs.
@@ -59,8 +61,9 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     }
 
     //% group="Text"
-    //% block="i2c %pi2cADDR wiederhole letzte Taste (* oder #)" weight=92
-    export function getlastChar(pADDR: eADDR) {
+    //% block="i2c %pADDR wiederhole letzte Taste (* oder #)" weight=2
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    export function getlastChar(pADDR: number) {
         let code = readRegister(pADDR, eKeypadRegisters.KEYPAD_BUTTON, false)
         if (code == 0) { return "" }
         else { return String.fromCharCode(code) }
@@ -70,8 +73,9 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     // ========== group="Zahl"
 
     //% group="Zahl"
-    //% block="i2c %pi2cADDR lese Taste (ASCII Code)" weight=84
-    export function getButton(pADDR: eADDR) {
+    //% block="i2c %pADDR lese Taste (ASCII Code)" weight=4
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    export function getButton(pADDR: number) {
         /*
         "commands" keypad to plug in the next button into the registerMap
         note, this actually sets the bit0 on the updateFIFO register
@@ -83,8 +87,9 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     }
 
     //% group="Zahl"
-    //% block="i2c %pi2cADDR Zeit seit dem Drücken in ms (UInt16)" weight=82
-    export function getTimeSincePressed(pADDR: eADDR) {
+    //% block="i2c %pADDR Zeit seit dem Drücken in ms (UInt16)" weight=2
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    export function getTimeSincePressed(pADDR: number) {
         return (readRegister(pADDR, eKeypadRegisters.KEYPAD_TIME_MSB, true) << 8)
             | readRegister(pADDR, eKeypadRegisters.KEYPAD_TIME_LSB, false)
     }
@@ -92,32 +97,50 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
 
 
     // ========== advanced=true
+    // ========== group="Keypad Register"
 
-    //% group="Keypad Register"
-    //% block="i2c %pi2cADDR writeRegister %pRegister %pByte repeat %pRepeat" weight=62
-    //% pRegister.defl=qwiickeypad.eKeypadRegisters.KEYPAD_UPDATE_FIFO pByte.defl=1
+    //% group="Keypad Register" advanced=true
+    //% block="i2c %pADDR writeRegister %pRegister %byte || repeat %pRepeat" weight=2
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    //% pRegister.defl=qwiickeypad.eKeypadRegisters.KEYPAD_UPDATE_FIFO
+    //% byte.min=0 byte.max=255 byte.defl=1
     //% inlineInputMode=inline
-    export function writeRegister(pADDR: eADDR, pRegister: eKeypadRegisters, pByte: number, pRepeat: boolean) {
+    export function writeRegister(pADDR: number, pRegister: eKeypadRegisters, byte: number, pRepeat?: boolean) {
         let bu = pins.createBuffer(2)
         bu.setUint8(0, pRegister)
-        bu.setUint8(1, pByte)
-        pins.i2cWriteBuffer(pADDR, bu, pRepeat)
+        bu.setUint8(1, byte)
+        qwiickeypad_i2cWriteBufferError = pins.i2cWriteBuffer(pADDR, bu, pRepeat)
     }
 
-
-    //% group="Keypad Register"
-    //% block="i2c %pi2cADDR readRegister %pRegister repeat %pRepeat" weight=60
-    export function readRegister(pADDR: eADDR, pRegister: eKeypadRegisters, pRepeat: boolean) {
+    //% group="Keypad Register" advanced=true
+    //% block="i2c %pADDR readRegister %pRegister || repeat %pRepeat" weight=1
+    //% pADDR.shadow="qwiickeypad_eADDR"
+    export function readRegister(pADDR: number, pRegister: eKeypadRegisters, pRepeat?: boolean) {
         let bu = pins.createBuffer(1)
         bu.setUint8(0, pRegister)
-        pins.i2cWriteBuffer(pADDR, bu, true)
+        qwiickeypad_i2cWriteBufferError = pins.i2cWriteBuffer(pADDR, bu, true)
 
         bu = pins.i2cReadBuffer(pADDR, 1, pRepeat)
         delay(25) // 25 ms is good, more is better
         return bu.getUint8(0)
     }
 
+
+    // ========== group="i2c Adressen"
+
+    //% blockId=qwiickeypad_eADDR
+    //% group="i2c Adressen" advanced=true
+    //% block="%pADDR" weight=4
+    export function qwiickeypad_eADDR(pADDR: eADDR): number { return pADDR }
+
+    //% group="i2c Adressen" advanced=true
+    //% block="Fehlercode vom letzten WriteBuffer (0 ist kein Fehler)" weight=2
+    export function i2cError() { return qwiickeypad_i2cWriteBufferError }
+    let qwiickeypad_i2cWriteBufferError: number = 0 // Fehlercode vom letzten WriteBuffer (0 ist kein Fehler)
+
+
     // https://www.arduino.cc/reference/en/language/functions/time/delay/
     function delay(pMillisec: number) { control.waitMicros(1000 * pMillisec) }
 
-} // key-qwiickeypad.ts
+} // qwiickeypad.ts
+

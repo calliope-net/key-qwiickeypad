@@ -9,7 +9,8 @@
         "README.md",
         "main.blocks",
         "main.ts",
-        "key-qwiickeypad.ts"
+        "key-qwiickeypad.ts",
+        "qwiickeypad.ts"
     ],
     "testFiles": [
         "test.ts"
