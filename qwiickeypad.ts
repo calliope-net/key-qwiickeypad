@@ -134,7 +134,7 @@ Code anhand der Arduino Library und Datenblätter neu programmiert von Lutz Elß
     export function qwiickeypad_eADDR(pADDR: eADDR): number { return pADDR }
 
     //% group="i2c Adressen" advanced=true
-    //% block="Fehlercode vom letzten WriteBuffer (0 ist kein Fehler)" weight=2
+    //% block="i2c Fehlercode" weight=2
     export function i2cError() { return qwiickeypad_i2cWriteBufferError }
     let qwiickeypad_i2cWriteBufferError: number = 0 // Fehlercode vom letzten WriteBuffer (0 ist kein Fehler)
 
